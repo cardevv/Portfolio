@@ -1,9 +1,13 @@
+import BotaoPrincipal from 'components/BotaoPrincipal';
 import styles from './styles.module.css'
 import erro404 from 'assets/erro_404.png'
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Notfound = () => {
+
+    const navegar = useNavigate();
 
     return (
 
@@ -21,9 +25,11 @@ const Notfound = () => {
     Volte a página inicial.
 </p>
 
-<div className={styles.botaoContainer}>
+<div className={styles.botaoContainer}
+onClick={() => navegar("/")}
+>
 
-    <button>Voltar</button>
+    <BotaoPrincipal tamanho="lg">Voltar</BotaoPrincipal>
 </div>
 
 <img className={styles.imagemCachorro}

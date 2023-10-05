@@ -1,9 +1,14 @@
 import './Post.css'
 import PostModelo from "components/PostModelo";
 import posts from "json/posts.json"
-import { useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import ReactMarkdown from "react-markdown"
+import Notfound from 'pages/NotFound';
+import PaginaPadrao from 'components/PaginaPadrao';
+
+import styles from './styles.module.css'
+import CardPost from 'components/CardPost';
 
 
 
@@ -20,25 +25,75 @@ const Post= () => {
 
     } )
 
+    if (!post) {
+        return <Notfound></Notfound>
+    }
+
+
+    const postsRecomendados = posts.filter((post) => post.id !== Number(parametros.id)).sort((a,b ) => b.id - a.id).slice(0 , 4);
+
    
     
 
     return ( 
-    
-        <PostModelo
-        fotoCapa={`/assets/posts/${post.id}/capa.png`}
 
-       
-        titulo={post.titulo}
-        >
+        <Routes>
+            <Route path='*' element={<PaginaPadrao></PaginaPadrao>}>
 
-            <div className="post-markdown-container">
-                <ReactMarkdown>
-                    {post.texto}
-                </ReactMarkdown>
-            </div>
-        </PostModelo>
+
+
+            <Route
+            index
+             element={
+
+                <PostModelo
         
+                fotoCapa={`/assets/posts/${post.id}/capa.png`}
+        
+               
+                titulo={post.titulo}
+                >
+        
+                    <div className="post-markdown-container">
+                        <ReactMarkdown>
+                            {post.texto}
+                        </ReactMarkdown>
+                    </div>
+
+                    <h2 className={styles.tituloOutrosPosts}>Outros projetos</h2>
+
+                    <ul className={styles.postsRecomendados}>
+
+                        {postsRecomendados.map((post) => (
+                            <li key={post.id}>
+
+                                <CardPost 
+                                
+                                post={post}></CardPost>
+
+                            </li>
+                        )
+                            )}
+                               
+
+                    </ul>
+
+
+
+
+                </PostModelo>
+                
+
+             }
+            ></Route>
+
+
+
+            </Route>
+          
+        </Routes>
+        
+      
     )
 
 

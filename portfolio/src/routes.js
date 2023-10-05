@@ -6,6 +6,7 @@ import Rodape from "components/Rodape";
 import PaginaPadrao from "components/PaginaPadrao";
 import Post from "pages/Post";
 import Notfound from "pages/NotFound";
+import ScrollToTop from "components/ScrollToTop";
 
 
 
@@ -15,6 +16,7 @@ function AppRoutes() {
    
       
       <BrowserRouter>
+      <ScrollToTop></ScrollToTop>
        <Menu></Menu>
       
       
@@ -24,12 +26,10 @@ function AppRoutes() {
 
         <Route path="/" element={<Inicio></Inicio>}></Route>
         <Route path="/sobremim" element={<Sobremim></Sobremim>}></Route>
-        <Route path="posts/:id" element={<Post></Post>}></Route>
-
-        
-
-
+      
         </Route>
+
+        <Route path="posts/:id" element={<Post></Post>}></Route>
         <Route path="*" element={<Notfound></Notfound>}></Route>
 
 
